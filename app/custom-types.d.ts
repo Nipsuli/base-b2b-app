@@ -7,5 +7,7 @@ declare module '@remix-run/cloudflare' {
     SUPABASE_URL: string;
     SUPABASE_SERVICE_KEY: string;
     PUBLIC_SUPABASE_ANON_KEY: string;
+    COOKIE_SECRET_1: string;
+    SESSION_KV: KVNamespace;
   }
 }

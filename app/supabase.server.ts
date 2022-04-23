@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import type { ApiError, Session } from '@supabase/supabase-js'
-import { AppLoadContext } from '@remix-run/cloudflare'
+import type { AppLoadContext } from '@remix-run/cloudflare'
 
 export const supabaseAdmin = (context: AppLoadContext) => {
   if (!context.SUPABASE_URL)
@@ -15,7 +15,7 @@ export const supabaseAdmin = (context: AppLoadContext) => {
     autoRefreshToken: true,
   };
 
-  createClient(
+  return createClient(
     context.SUPABASE_URL,
     context.SUPABASE_SERVICE_KEY,
     supabaseOptions

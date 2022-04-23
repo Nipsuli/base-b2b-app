@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-auto dark:bg-neutral-900;
+  }
+}
+
+@layer components {
+  .auth-container {
+    @apply grid place-items-center h-screen;
+  }
+
+  .darktoggle {
+    @apply fixed bottom-0 right-0 z-50 h-12;
+    @apply text-gray-500 dark:text-gray-400 hover:bg-gray-100;
+    @apply dark:hover:bg-gray-700 focus:outline-none focus:ring-4;
+    @apply focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg;
+    @apply text-sm p-2.5;
+  }
+}

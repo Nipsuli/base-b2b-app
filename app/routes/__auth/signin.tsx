@@ -1,34 +1,35 @@
 import { useState, useEffect } from "react";
 import { Auth } from "@supabase/ui";
 import { supabase } from "~/supabase.client";
-import styles from "~/routes/__auth/auth.css"
+import type { LoaderFunction } from "@remix-run/cloudflare";
+import { useLoaderData, useSearchParams } from "@remix-run/react";
 
-export const links = () => {
-  // using tailwind only in signin with supabase
-  return [
-    {
-      rel: "stylesheet",
-      href: "https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css",
-    },
-    {
-      rel: "stylesheet",
-      href: styles
-    }
-  ];
+export const loader: LoaderFunction = ({ context }) => {
+  if (!context.SERVER_URL) throw new Error("SEVER_URL is required");
+
+  return {
+    server_url: context.SERVER_URL,
+  };
 };
 
 const Index = () => {
   const [isClient, setIsclient] = useState(false);
   useEffect(() => setIsclient(true), []);
+  const { server_url } = useLoaderData();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
 
   if (isClient) {
     return (
       <Auth
-        className="dark auth-box"
+        className="auth-container"
         providers={["google"]}
         supabaseClient={supabase()}
         magicLink={true}
         view={"magic_link"}
+        redirectTo={`${server_url}/auth/callback${
+          redirectTo ? "?redirectTo=" + redirectTo : ""
+        }`}
       />
     );
   }

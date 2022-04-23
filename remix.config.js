@@ -1,15 +1,15 @@
-const nodepoly = require('@esbuild-plugins/node-globals-polyfill').default;
-const { withEsbuildOverride } = require("remix-esbuild-override");
+// const nodepoly = require('@esbuild-plugins/node-globals-polyfill').default;
+// const { withEsbuildOverride } = require("remix-esbuild-override");
 
-withEsbuildOverride((option, { isServer, isDev }) => {
-  option.plugins = option.plugins || []
-  option.plugins.push(nodepoly({ buffer: true }))
+// withEsbuildOverride((option, { isServer, isDev }) => {
+//   option.plugins = option.plugins || []
+//   option.plugins.push(nodepoly({ buffer: true }))
 
-  option.define = option.define || {}
-  option.define.global = 'globalThis'
+//   option.define = option.define || {}
+//   option.define.global = 'globalThis'
 
-  return option
-})
+//   return option
+// })
 
 /**
  * @type {import('@remix-run/dev').AppConfig}

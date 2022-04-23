@@ -1,0 +1,21 @@
+{
+  // Required: The website to display
+  "liveFrame.url": "http://localhost:8788",
+
+  // Optional: Title for the pane tab heading
+  "liveFrame.title": "Simple B2B app",
+
+  // Optional: Which pane to open the frame in
+  "liveFrame.pane": "Beside",
+
+  // "files.autoSave": "afterDelay",
+  // "files.autoSaveDelay": 50,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  "editor.quickSuggestions": {
+    "strings": true
+  }
+
+}

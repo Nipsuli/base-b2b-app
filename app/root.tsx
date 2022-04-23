@@ -1,4 +1,8 @@
-import type { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
+import type {
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/cloudflare";
 import {
   Links,
   LiveReload,
@@ -9,6 +13,10 @@ import {
   useCatch,
   useLoaderData,
 } from "@remix-run/react";
+import DarkModeToggle from "./components/darkModeToggle";
+import styles from "./tailwind.css";
+
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -17,19 +25,18 @@ export const meta: MetaFunction = () => ({
 });
 
 export const loader: LoaderFunction = ({ context }) => {
-  if (!context.SUPABASE_URL)
-    throw new Error('SUPABASE_URL is required')
+  if (!context.SUPABASE_URL) throw new Error("SUPABASE_URL is required");
 
   if (!context.PUBLIC_SUPABASE_ANON_KEY)
-    throw new Error('PUBLIC_SUPABASE_ANON_KEY is required')
+    throw new Error("PUBLIC_SUPABASE_ANON_KEY is required");
 
   return {
     env: {
       SUPABASE_URL: context.SUPABASE_URL,
       PUBLIC_SUPABASE_ANON_KEY: context.PUBLIC_SUPABASE_ANON_KEY,
     },
-  }
-}
+  };
+};
 
 export default function App() {
   const { env } = useLoaderData<Window>();
@@ -42,12 +49,11 @@ export default function App() {
       </head>
       <body>
         <Outlet />
+        <DarkModeToggle />
         <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(
-              env,
-            )}`,
+            __html: `window.env = ${JSON.stringify(env)}`,
           }}
         />
         <Scripts />
