@@ -16,7 +16,7 @@ const Logout = () => {
   return (
     <>
       <Form method="post">
-        <Button className="btn-poo">logout</Button>
+        <Button>logout</Button>
       </Form>
     </>
   )

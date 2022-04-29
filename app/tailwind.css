@@ -477,6 +477,14 @@ body {
   --tw-backdrop-sepia:  ;
 }
 
+.w-10 {
+  width: 2.5rem;
+}
+
+.min-w-\[50\] {
+  min-width: 50;
+}
+
 .auth-container {
   display: grid;
   height: 100vh;

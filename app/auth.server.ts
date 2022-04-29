@@ -6,7 +6,7 @@ import {
 import type { Session } from "@supabase/supabase-js";
 import { Authenticator, AuthorizationError } from "remix-auth";
 import { SupabaseStrategy } from "remix-auth-supabase";
-import { supabaseAdmin } from "./supabase.server";
+import { supabase, supabaseAdmin } from "./supabase.server";
 
 export const getAuth = (context: AppLoadContext) => {
   const sessionCookie = createCookie("__session", {
@@ -57,7 +57,18 @@ export const getSession = async (
   const redirect = redirectBack
     ? `?redirectTo=${new URL(request.url).pathname}`
     : "";
-  return getAuth(context).authStrategy.checkSession(request, {
+  const session = await getAuth(context).authStrategy.checkSession(request, {
     failureRedirect: `/signin${redirect}`,
   });
+  if (!session.user) throw new Response("No user found", { status: 401 });
+  return session;
+};
+
+export const getSupabase = async (
+  context: AppLoadContext,
+  session: Session
+) => {
+  const sp = supabase(context);
+  sp.auth.setAuth(session.access_token);
+  return sp;
 };
