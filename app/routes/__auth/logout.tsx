@@ -12,13 +12,11 @@ export const loader:LoaderFunction = async ({ request, context }) => {
   return {}
 }
 
-const Logout = () => {
+export const Logout = () => {
   return (
-    <>
-      <Form method="post">
-        <Button>logout</Button>
-      </Form>
-    </>
+    <Form action="/logout" method="post">
+      <Button>logout</Button>
+    </Form>
   )
 }
 

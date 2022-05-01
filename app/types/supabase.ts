@@ -12,6 +12,201 @@ export interface paths {
       };
     };
   };
+  "/group_members": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.group_members.id"];
+          created_at?: parameters["rowFilter.group_members.created_at"];
+          user_id?: parameters["rowFilter.group_members.user_id"];
+          group_id?: parameters["rowFilter.group_members.group_id"];
+          roles?: parameters["rowFilter.group_members.roles"];
+          deleted?: parameters["rowFilter.group_members.deleted"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["group_members"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** group_members */
+          group_members?: definitions["group_members"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.group_members.id"];
+          created_at?: parameters["rowFilter.group_members.created_at"];
+          user_id?: parameters["rowFilter.group_members.user_id"];
+          group_id?: parameters["rowFilter.group_members.group_id"];
+          roles?: parameters["rowFilter.group_members.roles"];
+          deleted?: parameters["rowFilter.group_members.deleted"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.group_members.id"];
+          created_at?: parameters["rowFilter.group_members.created_at"];
+          user_id?: parameters["rowFilter.group_members.user_id"];
+          group_id?: parameters["rowFilter.group_members.group_id"];
+          roles?: parameters["rowFilter.group_members.roles"];
+          deleted?: parameters["rowFilter.group_members.deleted"];
+        };
+        body: {
+          /** group_members */
+          group_members?: definitions["group_members"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/groups": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.groups.id"];
+          created_at?: parameters["rowFilter.groups.created_at"];
+          name?: parameters["rowFilter.groups.name"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["groups"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** groups */
+          groups?: definitions["groups"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.groups.id"];
+          created_at?: parameters["rowFilter.groups.created_at"];
+          name?: parameters["rowFilter.groups.name"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.groups.id"];
+          created_at?: parameters["rowFilter.groups.created_at"];
+          name?: parameters["rowFilter.groups.name"];
+        };
+        body: {
+          /** groups */
+          groups?: definitions["groups"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
   "/users": {
     get: {
       parameters: {
@@ -111,9 +306,76 @@ export interface paths {
       };
     };
   };
+  "/rpc/create_group": {
+    post: {
+      parameters: {
+        body: {
+          args: {
+            /** Format: text */
+            group_name: string;
+          };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
 }
 
 export interface definitions {
+  group_members: {
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     * @default extensions.uuid_generate_v4()
+     */
+    id: string;
+    /**
+     * Format: timestamp with time zone
+     * @default now()
+     */
+    created_at: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
+     */
+    user_id: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `groups.id`.<fk table='groups' column='id'/>
+     */
+    group_id: string;
+    /** Format: ARRAY */
+    roles: unknown[];
+    /** Format: timestamp with time zone */
+    deleted?: string;
+  };
+  /** @description This is teams and such, but in generic form */
+  groups: {
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     * @default extensions.uuid_generate_v4()
+     */
+    id: string;
+    /**
+     * Format: timestamp with time zone
+     * @default now()
+     */
+    created_at: string;
+    /** Format: text */
+    name: string;
+  };
   /** @description stores users */
   users: {
     /**
@@ -160,6 +422,28 @@ export interface parameters {
   offset: string;
   /** @description Limiting and Pagination */
   limit: string;
+  /** @description group_members */
+  "body.group_members": definitions["group_members"];
+  /** Format: uuid */
+  "rowFilter.group_members.id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.group_members.created_at": string;
+  /** Format: uuid */
+  "rowFilter.group_members.user_id": string;
+  /** Format: uuid */
+  "rowFilter.group_members.group_id": string;
+  /** Format: ARRAY */
+  "rowFilter.group_members.roles": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.group_members.deleted": string;
+  /** @description groups */
+  "body.groups": definitions["groups"];
+  /** Format: uuid */
+  "rowFilter.groups.id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.groups.created_at": string;
+  /** Format: text */
+  "rowFilter.groups.name": string;
   /** @description users */
   "body.users": definitions["users"];
   /** Format: uuid */

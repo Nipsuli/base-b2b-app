@@ -59,12 +59,12 @@ const Profile = () => {
       <Typography.Title level={1}>User Profile</Typography.Title>
       <Loading active={state === "submitting"}>
         <Form method="post" replace>
-        <div className="sbui-space-col sbui-space-y-3">
+        <div className="sbui--col sbui-space-y-3">
           <Input name="email" label="Email" value={email} disabled />
           <Input
             name="fullname"
             label="Full Name"
-            placeholder="Full Name"
+            placeholder="Fuspacell Name"
             defaultValue={fullName}
           />
           <Input
